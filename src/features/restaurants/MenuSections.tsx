@@ -85,7 +85,7 @@ export function MenuSections({ menu }: { menu: MenuSection[] }) {
                     <li key={i.id} className="py-4">
                       <div className="flex items-baseline justify-between gap-4">
                         <p className="font-semibold">{i.name}</p>
-                        <span className="whitespace-nowrap font-semibold">
+                        <span className="font-semibold whitespace-nowrap">
                           {money.format(Number(i.price))}
                         </span>
                       </div>

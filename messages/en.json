@@ -50,5 +50,27 @@
   },
   "footer": {
     "back": "Back to catalog"
+  },
+  "booking": {
+    "title": "Choose a time",
+    "hoursDaily": "daily {from}–{to}",
+    "hoursVaries": "opening hours vary by day",
+    "date": "Date",
+    "guests": "Guests",
+    "guestsDecrease": "Decrease number of guests",
+    "guestsIncrease": "Increase number of guests",
+    "freeTime": "Available times",
+    "slotsHint": "Start times are shown every 30 minutes. A sitting lasts 2 hours.",
+    "loading": "Loading available times…",
+    "noSlots": "No available times for this date and party size. Try another date or number of guests.",
+    "loadError": "Could not load available times.",
+    "retry": "Try again",
+    "summaryTitle": "Your booking",
+    "summaryRestaurant": "Restaurant",
+    "summaryDate": "Date",
+    "summaryTime": "Time",
+    "summaryGuests": "Guests",
+    "continue": "Continue",
+    "autoTable": "We will assign a table automatically."
   }
 }

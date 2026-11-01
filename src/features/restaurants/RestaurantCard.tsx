@@ -19,7 +19,7 @@ export function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
             className="object-cover"
           />
         )}
-        <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-white/80 px-3 py-1 text-xs font-medium backdrop-blur">
+        <span className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-white/80 px-3 py-1 text-xs font-medium backdrop-blur">
           <MapPin className="h-3 w-3 text-orange-500" aria-hidden />
           {restaurant.city}
         </span>

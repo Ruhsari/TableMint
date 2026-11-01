@@ -12,7 +12,7 @@ export function BackgroundDecor() {
         width={360}
         height={360}
         unoptimized
-        className="absolute -left-24 top-[520px]"
+        className="absolute top-[520px] -left-24"
       />
       <Image
         src="/images/plate-right.png"
@@ -20,7 +20,7 @@ export function BackgroundDecor() {
         width={160}
         height={215}
         quality={95}
-        className="absolute -right-16 top-[820px]"
+        className="absolute top-[820px] -right-16"
       />
     </div>
   );

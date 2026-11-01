@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { Restaurant } from '@/mocks/restaurants';
+import { Link } from '@/i18n/navigation';
 
 export function RestaurantHero({ restaurant }: { restaurant: Restaurant }) {
   const t = useTranslations('restaurant');
@@ -33,13 +34,13 @@ export function RestaurantHero({ restaurant }: { restaurant: Restaurant }) {
         </div>
 
         <div className="self-start rounded-3xl border border-white/70 bg-white/50 p-5">
-          <button
-            type="button"
+          <Link
+            href={`/restaurants/${restaurant.id}/book`}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-white hover:bg-orange-600"
           >
             {t('book')}
             <ArrowRight className="h-4 w-4" aria-hidden />
-          </button>
+          </Link>
           <button
             type="button"
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-orange-600 hover:bg-orange-50"
