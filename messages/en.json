@@ -1,8 +1,18 @@
 {
+  "nav": {
+    "catalog": "Catalog",
+    "about": "About",
+    "login": "Sign in"
+  },
   "catalog": {
+    "region": "Kyrgyzstan",
     "title": "Where shall we go?",
     "subtitle": "Discover a new place for warm gatherings.",
     "search": "Restaurant name",
-    "book": "Book a table"
+    "book": "Book a table",
+    "listTitle": "Restaurants",
+    "listHint": "Demo venues",
+    "count": "{count, plural, one {# place} other {# places}}",
+    "notice": "You will need to sign in to confirm a booking."
   }
 }
