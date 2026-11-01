@@ -1,8 +1,10 @@
 {
   "nav": {
     "catalog": "Каталог",
+    "myBookings": "Мои брони",
     "about": "О сервисе",
-    "login": "Войти"
+    "login": "Войти",
+    "logout": "Выйти"
   },
   "catalog": {
     "region": "Кыргызстан",
@@ -51,6 +53,27 @@
   "footer": {
     "back": "Вернуться в каталог"
   },
+
+  "auth": {
+    "loginTitle": "Вход в TableMint",
+    "loginSubtitle": "Нужен только для подтверждения брони.",
+    "email": "Email",
+    "emailPlaceholder": "name@example.com",
+    "password": "Пароль",
+    "loginAction": "Войти",
+    "loggingIn": "Входим…",
+    "toRegister": "Регистрация",
+    "registerTitle": "Регистрация в TableMint",
+    "registerSubtitle": "Аккаунт нужен только для подтверждения брони.",
+    "displayName": "Имя",
+    "phone": "Телефон (необязательно)",
+    "passwordHint": "Не короче 10 символов.",
+    "consent": "Я согласен(на) на обработку персональных данных",
+    "registerAction": "Зарегистрироваться",
+    "registering": "Регистрируем…",
+    "toLogin": "Уже есть аккаунт? Войти"
+  },
+
   "booking": {
     "title": "Выберите время",
     "hoursDaily": "ежедневно {from}–{to}",

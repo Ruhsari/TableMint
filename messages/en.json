@@ -1,8 +1,10 @@
 {
   "nav": {
     "catalog": "Catalog",
+    "myBookings": "My bookings",
     "about": "About",
-    "login": "Sign in"
+    "login": "Sign in",
+    "logout": "Sign out"
   },
   "catalog": {
     "region": "Kyrgyzstan",
@@ -51,6 +53,26 @@
   "footer": {
     "back": "Back to catalog"
   },
+  "auth": {
+    "loginTitle": "Sign in to TableMint",
+    "loginSubtitle": "Only needed to confirm a booking.",
+    "email": "Email",
+    "emailPlaceholder": "name@example.com",
+    "password": "Password",
+    "loginAction": "Sign in",
+    "loggingIn": "Signing in…",
+    "toRegister": "Create an account",
+    "registerTitle": "Create your TableMint account",
+    "registerSubtitle": "An account is only needed to confirm a booking.",
+    "displayName": "Name",
+    "phone": "Phone (optional)",
+    "passwordHint": "At least 10 characters.",
+    "consent": "I agree to the processing of my personal data",
+    "registerAction": "Create account",
+    "registering": "Creating account…",
+    "toLogin": "Already have an account? Sign in"
+  },
+
   "booking": {
     "title": "Choose a time",
     "hoursDaily": "daily {from}–{to}",

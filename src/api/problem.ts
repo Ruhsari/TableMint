@@ -3,4 +3,5 @@ export type ApiProblem = {
   code: string;
   title: string;
   detail?: string;
+  fieldErrors?: Record<string, string>; // поле -> сообщение под полем
 };
