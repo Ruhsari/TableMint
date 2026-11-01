@@ -5,14 +5,19 @@ function intlLocale(locale: string) {
   return locale === 'en' ? 'en-GB' : 'ru-RU';
 }
 
-/** Сегодняшняя дата в часовом поясе ресторана: 'YYYY-MM-DD' */
-export function todayInRestaurantZone(now: Date = new Date()): string {
+/** Дата момента в часовом поясе ресторана: 'YYYY-MM-DD' */
+export function dateInRestaurantZone(d: Date): string {
   return new Intl.DateTimeFormat('en-CA', {
     timeZone: RESTAURANT_TIME_ZONE,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-  }).format(now);
+  }).format(d);
+}
+
+/** Сегодняшняя дата в часовом поясе ресторана */
+export function todayInRestaurantZone(now: Date = new Date()): string {
+  return dateInRestaurantZone(now);
 }
 
 /** '2026-10-29T19:00:00+06:00' -> '19:00' (во времени ресторана) */
@@ -34,4 +39,13 @@ export function formatDateOnly(date: string, locale: string): string {
     day: 'numeric',
     month: 'long',
   }).format(d);
+}
+
+/** '2026-10-29T19:00:00+06:00' -> '29 октября' */
+export function formatDate(iso: string, locale: string): string {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    timeZone: RESTAURANT_TIME_ZONE,
+    day: 'numeric',
+    month: 'long',
+  }).format(new Date(iso));
 }

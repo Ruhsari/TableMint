@@ -13,15 +13,23 @@ type Props = {
   restaurantId: string;
   restaurantName: string;
   initialDate: string; // 'YYYY-MM-DD', считается на сервере
+  initialGuests: number;
+  initialSlot: string | null;
 };
 
-export function BookingPicker({ restaurantId, restaurantName, initialDate }: Props) {
+export function BookingPicker({
+  restaurantId,
+  restaurantName,
+  initialDate,
+  initialGuests,
+  initialSlot,
+}: Props) {
   const t = useTranslations('booking');
   const locale = useLocale();
 
   const [date, setDate] = useState(initialDate);
-  const [guests, setGuests] = useState(1);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [guests, setGuests] = useState(initialGuests);
+  const [selected, setSelected] = useState<string | null>(initialSlot);
   const [attempt, setAttempt] = useState(0);
   const [result, setResult] = useState<{ key: string; data: AvailabilityResult | null } | null>(
     null,
@@ -156,7 +164,14 @@ export function BookingPicker({ restaurantId, restaurantName, initialDate }: Pro
         date={formatDateOnly(date, locale)}
         time={selectedSlot ? formatTime(selectedSlot, locale) : null}
         guests={guests}
-        canContinue={selectedSlot !== null}
+        continueHref={
+          selectedSlot
+            ? {
+                pathname: `/restaurants/${restaurantId}/book/confirm`,
+                query: { startsAt: selectedSlot, guests },
+              }
+            : null
+        }
       />
     </div>
   );

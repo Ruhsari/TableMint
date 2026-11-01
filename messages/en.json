@@ -71,6 +71,23 @@
     "summaryTime": "Time",
     "summaryGuests": "Guests",
     "continue": "Continue",
-    "autoTable": "We will assign a table automatically."
+    "autoTable": "We will assign a table automatically.",
+    "confirmTitle": "Confirm your booking",
+    "confirmSubtitle": "Check the details. Sign-in is only needed to confirm.",
+    "backToTime": "Back to time selection",
+    "signedInAs": "Signed in as {name}",
+    "accountHint": "The booking will be made on your account.",
+    "signInTitle": "Sign in to confirm your booking",
+    "signInHint": "Sign-in is only needed to confirm. Your selected time will be kept.",
+    "signInAction": "Sign in",
+    "address": "Address",
+    "confirmAction": "Book a table",
+    "submitting": "Booking…",
+    "idempotencyHint": "Pressing again will not create a second booking.",
+    "networkError": "Could not send the booking. Check your connection and try again: a second booking will not be created.",
+    "successTitle": "Booking confirmed",
+    "successCode": "Booking code",
+    "successHint": "Keep this code. We look forward to seeing you on {date} at {time}.",
+    "toCatalog": "Back to catalog"
   }
 }

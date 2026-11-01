@@ -11,19 +11,36 @@ import { todayInRestaurantZone } from '@/lib/time';
 // «Сегодня» меняется каждый день, поэтому страницу нельзя кэшировать при сборке
 export const dynamic = 'force-dynamic';
 
+type SearchParams = {
+  date?: string | string[];
+  guests?: string | string[];
+  startsAt?: string | string[];
+};
+
+const one = (v: string | string[] | undefined) => (typeof v === 'string' ? v : '');
+
 export default async function BookingPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; id: string }>;
+  searchParams: Promise<SearchParams>;
 }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
+  const sp = await searchParams;
 
   const restaurant = await fetchRestaurant(id);
   if (!restaurant) notFound();
 
   const t = await getTranslations('booking');
   const tr = await getTranslations('restaurant');
+
+  // Значения из адреса только подставляются в форму. Правила проверяет API.
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(one(sp.date)) ? one(sp.date) : todayInRestaurantZone();
+  const parsedGuests = Number.parseInt(one(sp.guests), 10);
+  const guests = Number.isInteger(parsedGuests) && parsedGuests >= 1 ? parsedGuests : 1;
+  const slot = one(sp.startsAt) || null;
 
   const first = restaurant.hours[0];
   const daily =
@@ -58,7 +75,9 @@ export default async function BookingPage({
             <BookingPicker
               restaurantId={restaurant.id}
               restaurantName={restaurant.name}
-              initialDate={todayInRestaurantZone()}
+              initialDate={date}
+              initialGuests={guests}
+              initialSlot={slot}
             />
           </div>
 
