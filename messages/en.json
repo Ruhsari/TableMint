@@ -8,12 +8,13 @@
     "region": "Kyrgyzstan",
     "title": "Where shall we go?",
     "subtitle": "Discover a new place for warm gatherings.",
-    "search": "Restaurant name",
+    "search": "Name, city or cuisine",
     "book": "Book a table",
     "listTitle": "Restaurants",
     "listHint": "Demo venues",
     "count": "{count, plural, one {# place} other {# places}}",
-    "notice": "You will need to sign in to confirm a booking."
+    "notice": "You will need to sign in to confirm a booking.",
+    "empty": "Nothing found. Try another name."
   },
   "locale": {
   "label": "Language",
