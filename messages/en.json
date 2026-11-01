@@ -17,8 +17,38 @@
     "empty": "Nothing found. Try another name."
   },
   "locale": {
-  "label": "Language",
-  "ru": "Рус",
-  "en": "Eng"
+    "label": "Language",
+    "ru": "Рус",
+    "en": "Eng"
+  },
+  "restaurant": {
+    "breadcrumbLabel": "Breadcrumb",
+    "breadcrumbBack": "Back to catalog",
+    "book": "Book a table",
+    "contact": "Contact the restaurant",
+    "bookHint": "You will choose the date, party size and time next. Sign-in is only needed to confirm.",
+    "demoNote": "Address, phone, opening hours and menu are demo data.",
+    "address": "Address",
+    "hours": "Opening hours",
+    "hoursDaily": "Daily",
+    "hoursRange": "Monday to Sunday",
+    "hoursVaries": "Varies by day",
+    "phone": "Phone",
+    "phoneHint": "Restaurant contact",
+    "menu": "Menu",
+    "menuHint": "Prices are in Kyrgyz som (KGS)",
+    "sectionsCount": "{count, plural, one {# section} other {# sections}}",
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "menuEmpty": "The menu is not filled in yet.",
+    "d1": "Monday",
+    "d2": "Tuesday",
+    "d3": "Wednesday",
+    "d4": "Thursday",
+    "d5": "Friday",
+    "d6": "Saturday",
+    "d7": "Sunday"
+  },
+  "footer": {
+    "back": "Back to catalog"
   }
 }
