@@ -2,9 +2,7 @@ import { readFileSync } from 'node:fs';
 
 function keys(obj, prefix = '') {
   return Object.entries(obj).flatMap(([k, v]) =>
-    typeof v === 'object' && v !== null
-      ? keys(v, `${prefix}${k}.`)
-      : [`${prefix}${k}`],
+    typeof v === 'object' && v !== null ? keys(v, `${prefix}${k}.`) : [`${prefix}${k}`],
   );
 }
 

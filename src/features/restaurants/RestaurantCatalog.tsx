@@ -10,13 +10,11 @@ export function RestaurantCatalog({ items }: { items: Restaurant[] }) {
   const [query, setQuery] = useState('');
 
   const q = query.trim().toLowerCase();
-    const filtered = q
-  ? items.filter((r) =>
-      [r.name, r.city, r.description].some((field) =>
-        field.toLowerCase().includes(q),
-      ),
-    )
-  : items;
+  const filtered = q
+    ? items.filter((r) =>
+        [r.name, r.city, r.description].some((field) => field.toLowerCase().includes(q)),
+      )
+    : items;
 
   return (
     <>
@@ -35,7 +33,7 @@ export function RestaurantCatalog({ items }: { items: Restaurant[] }) {
         />
 
         <p className="mt-6 rounded-2xl border border-[#FDE7E0] bg-[#FFF7F4] px-5 py-4 text-sm text-[#9A4A33]">
-        {t('notice')}
+          {t('notice')}
         </p>
       </section>
 
@@ -45,17 +43,13 @@ export function RestaurantCatalog({ items }: { items: Restaurant[] }) {
             <h2 className="text-xl font-bold">{t('listTitle')}</h2>
             <p className="text-xs text-neutral-500">{t('listHint')}</p>
           </div>
-          <span className="text-sm text-neutral-500">
-            {t('count', { count: filtered.length })}
-          </span>
+          <span className="text-sm text-neutral-500">{t('count', { count: filtered.length })}</span>
         </div>
 
         {filtered.length > 0 ? (
           <RestaurantGrid items={filtered} />
         ) : (
-          <p className="rounded-2xl bg-white p-6 text-neutral-500">
-            {t('empty')}
-          </p>
+          <p className="rounded-2xl bg-white p-6 text-neutral-500">{t('empty')}</p>
         )}
       </section>
     </>

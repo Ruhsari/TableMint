@@ -40,8 +40,7 @@ export function MenuSections({ menu }: { menu: MenuSection[] }) {
         </div>
         {sections.length > 0 && (
           <p className="text-sm text-neutral-500">
-            {t('sectionsCount', { count: sections.length })} ·{' '}
-            {t('itemsCount', { count: total })}
+            {t('sectionsCount', { count: sections.length })} · {t('itemsCount', { count: total })}
           </p>
         )}
       </div>

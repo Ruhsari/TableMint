@@ -17,10 +17,7 @@ export default async function RestaurantPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const [restaurant, menu] = await Promise.all([
-    fetchRestaurant(id),
-    fetchMenu(id),
-  ]);
+  const [restaurant, menu] = await Promise.all([fetchRestaurant(id), fetchMenu(id)]);
   if (!restaurant) notFound();
 
   const t = await getTranslations('restaurant');
@@ -29,14 +26,8 @@ export default async function RestaurantPage({
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-6 pt-8">
-        <nav
-          aria-label={t('breadcrumbLabel')}
-          className="flex items-center gap-3 text-sm"
-        >
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-orange-500 hover:underline"
-          >
+        <nav aria-label={t('breadcrumbLabel')} className="flex items-center gap-3 text-sm">
+          <Link href="/" className="flex items-center gap-2 text-orange-500 hover:underline">
             <ArrowLeft className="h-4 w-4" aria-hidden />
             {t('breadcrumbBack')}
           </Link>

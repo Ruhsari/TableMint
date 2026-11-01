@@ -28,9 +28,7 @@ export function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
       <div className="flex items-end justify-between gap-3 p-3">
         <div className="min-w-0">
           <h3 className="line-clamp-2 text-lg font-bold">{restaurant.name}</h3>
-          <p className="line-clamp-2 text-sm text-neutral-500">
-            {restaurant.description}
-          </p>
+          <p className="line-clamp-2 text-sm text-neutral-500">{restaurant.description}</p>
         </div>
         <Link
           href={`/restaurants/${restaurant.id}`}

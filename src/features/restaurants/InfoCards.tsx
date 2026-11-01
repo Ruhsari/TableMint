@@ -42,9 +42,7 @@ export function InfoCards({ restaurant }: { restaurant: Restaurant }) {
 
   let hoursValue = '—';
   if (first) {
-    hoursValue = daily
-      ? `${t('hoursDaily')} · ${first.opens}–${first.closes}`
-      : t('hoursVaries');
+    hoursValue = daily ? `${t('hoursDaily')} · ${first.opens}–${first.closes}` : t('hoursVaries');
   }
 
   return (

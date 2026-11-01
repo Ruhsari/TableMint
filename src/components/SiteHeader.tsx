@@ -14,11 +14,11 @@ export function SiteHeader() {
 
       <nav className="flex items-center gap-6 text-sm">
         <Link
-  href="/"
-  className="rounded-full bg-[#FDE7E0] px-4 py-2 font-semibold text-orange-600"
->
-  {t('catalog')}
-</Link>
+          href="/"
+          className="rounded-full bg-[#FDE7E0] px-4 py-2 font-semibold text-orange-600"
+        >
+          {t('catalog')}
+        </Link>
         <span className="text-neutral-500">{t('about')}</span>
       </nav>
 
