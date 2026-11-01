@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { restaurants } from '@/mocks/restaurants';
 import { RestaurantGrid } from '@/features/restaurants/RestaurantGrid';
 
 export default async function CatalogPage() {
@@ -18,7 +19,7 @@ export default async function CatalogPage() {
       </section>
 
       <section>
-        <RestaurantGrid items={[]} />
+        <RestaurantGrid items={restaurants} />
       </section>
     </main>
   );

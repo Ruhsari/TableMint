@@ -14,5 +14,10 @@
     "listHint": "Demo venues",
     "count": "{count, plural, one {# place} other {# places}}",
     "notice": "You will need to sign in to confirm a booking."
+  },
+  "locale": {
+  "label": "Language",
+  "ru": "Рус",
+  "en": "Eng"
   }
 }
