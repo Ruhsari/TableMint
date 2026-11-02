@@ -1,20 +1,23 @@
+import type { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 
-type Href = { pathname: string; query: Record<string, string | number> };
+export const primaryButtonClass =
+  'mt-6 block w-full rounded-full bg-orange-500 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-orange-600';
 
 export function BookingSummary({
   restaurantName,
   date,
   time,
   guests,
-  continueHref,
+  hint,
+  children,
 }: {
   restaurantName: string;
   date: string;
   time: string | null;
   guests: number;
-  continueHref: Href | null;
+  hint: string;
+  children: ReactNode; // кнопка действия
 }) {
   const t = useTranslations('booking');
 
@@ -24,9 +27,6 @@ export function BookingSummary({
     [t('summaryTime'), time ?? '—'],
     [t('summaryGuests'), String(guests)],
   ];
-
-  const buttonClass =
-    'mt-6 block w-full rounded-full bg-orange-500 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-orange-600';
 
   return (
     <section aria-labelledby="summary-title" className="rounded-3xl bg-white p-8 shadow-sm">
@@ -43,20 +43,8 @@ export function BookingSummary({
         ))}
       </dl>
 
-      {continueHref ? (
-        <Link href={continueHref} className={buttonClass}>
-          {t('continue')}
-        </Link>
-      ) : (
-        <button
-          type="button"
-          disabled
-          className={`${buttonClass} cursor-not-allowed opacity-50 hover:bg-orange-500`}
-        >
-          {t('continue')}
-        </button>
-      )}
-      <p className="mt-4 text-sm text-neutral-500">{t('autoTable')}</p>
+      {children}
+      <p className="mt-4 text-sm text-neutral-500">{hint}</p>
     </section>
   );
 }

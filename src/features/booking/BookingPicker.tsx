@@ -4,9 +4,11 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { Minus, Plus, RotateCw } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { ApiMessage } from '@/components/ApiMessage';
+import { Link } from '@/i18n/navigation';
 import { formatDateOnly, formatTime } from '@/lib/time';
 import { fetchAvailability } from './availability';
-import { BookingSummary } from './BookingSummary';
+import { BookingSummary, primaryButtonClass } from './BookingSummary';
+import { RescheduleButton } from './RescheduleButton';
 import type { AvailabilityResult } from './types';
 
 type Props = {
@@ -15,6 +17,7 @@ type Props = {
   initialDate: string; // 'YYYY-MM-DD', считается на сервере
   initialGuests: number;
   initialSlot: string | null;
+  rescheduleBookingId?: string; // если задан, экран работает как перенос
 };
 
 export function BookingPicker({
@@ -23,9 +26,11 @@ export function BookingPicker({
   initialDate,
   initialGuests,
   initialSlot,
+  rescheduleBookingId,
 }: Props) {
   const t = useTranslations('booking');
   const locale = useLocale();
+  const rescheduling = Boolean(rescheduleBookingId);
 
   const [date, setDate] = useState(initialDate);
   const [guests, setGuests] = useState(initialGuests);
@@ -107,6 +112,36 @@ export function BookingPicker({
     );
   }
 
+  const guestButton =
+    'flex h-7 w-7 items-center justify-center rounded-full bg-white text-orange-500 shadow-sm disabled:cursor-not-allowed disabled:opacity-40';
+
+  let action: ReactNode;
+  if (rescheduleBookingId) {
+    action = <RescheduleButton bookingId={rescheduleBookingId} startsAt={selectedSlot} />;
+  } else if (selectedSlot) {
+    action = (
+      <Link
+        href={{
+          pathname: `/restaurants/${restaurantId}/book/confirm`,
+          query: { startsAt: selectedSlot, guests },
+        }}
+        className={primaryButtonClass}
+      >
+        {t('continue')}
+      </Link>
+    );
+  } else {
+    action = (
+      <button
+        type="button"
+        disabled
+        className={`${primaryButtonClass} cursor-not-allowed opacity-50 hover:bg-orange-500`}
+      >
+        {t('continue')}
+      </button>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <section className="rounded-3xl bg-white p-8 shadow-sm">
@@ -132,8 +167,9 @@ export function BookingPicker({
               <button
                 type="button"
                 aria-label={t('guestsDecrease')}
+                disabled={rescheduling}
                 onClick={() => setGuests((g) => Math.max(1, g - 1))}
-                className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-orange-500 shadow-sm"
+                className={guestButton}
               >
                 <Minus className="h-3 w-3" aria-hidden />
               </button>
@@ -143,8 +179,9 @@ export function BookingPicker({
               <button
                 type="button"
                 aria-label={t('guestsIncrease')}
+                disabled={rescheduling}
                 onClick={() => setGuests((g) => g + 1)}
-                className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-orange-500 shadow-sm"
+                className={guestButton}
               >
                 <Plus className="h-3 w-3" aria-hidden />
               </button>
@@ -164,15 +201,10 @@ export function BookingPicker({
         date={formatDateOnly(date, locale)}
         time={selectedSlot ? formatTime(selectedSlot, locale) : null}
         guests={guests}
-        continueHref={
-          selectedSlot
-            ? {
-                pathname: `/restaurants/${restaurantId}/book/confirm`,
-                query: { startsAt: selectedSlot, guests },
-              }
-            : null
-        }
-      />
+        hint={rescheduling ? t('rescheduleHint') : t('autoTable')}
+      >
+        {action}
+      </BookingSummary>
     </div>
   );
 }

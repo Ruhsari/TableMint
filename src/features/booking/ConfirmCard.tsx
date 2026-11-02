@@ -1,15 +1,13 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { CircleCheck } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { ApiProblem } from '@/api/problem';
 import { ApiMessage } from '@/components/ApiMessage';
-import { Link } from '@/i18n/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { formatDate, formatTime } from '@/lib/time';
 import { newIdempotencyKey } from '@/lib/uuid';
-import { createBooking } from './createBooking';
-import type { Booking } from './types';
+import { createBookingAction } from './actions';
 
 type Props = {
   restaurantId: string;
@@ -30,8 +28,8 @@ export function ConfirmCard({
 }: Props) {
   const t = useTranslations('booking');
   const locale = useLocale();
+  const router = useRouter();
 
-  const [booking, setBooking] = useState<Booking | null>(null);
   const [problem, setProblem] = useState<ApiProblem | null>(null);
   const [networkError, setNetworkError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -39,7 +37,7 @@ export function ConfirmCard({
   // Один ключ на одну попытку: повторное нажатие или повтор после сбоя сети
   // уходят с тем же ключом, поэтому вторая бронь не создаётся.
   const keyRef = useRef<string | null>(null);
-  // Защита от двойного клика: state обновляется не мгновенно, ref мгновенно.
+  // Защита от двойного клика: ref обновляется мгновенно, state нет.
   const inFlight = useRef(false);
 
   const dateText = formatDate(startsAt, locale);
@@ -53,16 +51,17 @@ export function ConfirmCard({
     setNetworkError(false);
 
     const key = (keyRef.current ??= newIdempotencyKey());
+    let navigating = false;
     try {
-      const result = await createBooking({
+      const result = await createBookingAction({
         restaurantId,
         startsAt,
         guests,
         idempotencyKey: key,
-        locale,
       });
       if (result.booking) {
-        setBooking(result.booking);
+        navigating = true; // кнопка остаётся заблокированной до перехода
+        router.push(`/bookings/${result.booking.id}/success`);
       } else {
         setProblem(result.problem);
         keyRef.current = null; // окончательный отказ: следующая попытка с новым ключом
@@ -70,32 +69,9 @@ export function ConfirmCard({
     } catch {
       setNetworkError(true); // ключ остаётся прежним
     } finally {
-      inFlight.current = false;
-      setSubmitting(false);
+      inFlight.current = navigating;
+      if (!navigating) setSubmitting(false);
     }
-  }
-
-  // Временный экран успеха. Его заменит экран C5.
-  if (booking) {
-    return (
-      <section className="rounded-3xl bg-white p-8 shadow-sm" aria-live="polite">
-        <div className="flex items-center gap-3">
-          <CircleCheck className="h-6 w-6 text-orange-500" aria-hidden />
-          <h2 className="text-xl font-semibold">{t('successTitle')}</h2>
-        </div>
-        <p className="mt-6 text-sm text-neutral-500">{t('successCode')}</p>
-        <p className="mt-1 text-3xl font-bold tracking-wider">{booking.reference}</p>
-        <p className="mt-4 text-neutral-500">
-          {t('successHint', { date: dateText, time: timeText })}
-        </p>
-        <Link
-          href="/"
-          className="mt-6 block w-full rounded-full bg-orange-500 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-orange-600"
-        >
-          {t('toCatalog')}
-        </Link>
-      </section>
-    );
   }
 
   const rows: [string, string][] = [

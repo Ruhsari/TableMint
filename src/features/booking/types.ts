@@ -8,6 +8,7 @@ export type AvailabilityResult = {
 export type Booking = {
   id: string;
   reference: string; // код вида TM-7K3Q9P
+  restaurantId: string;
   startsAt: string;
   endsAt: string;
   partySize: number;
@@ -16,5 +17,9 @@ export type Booking = {
 
 export type CreateBookingResult = {
   booking: Booking | null;
+  problem: ApiProblem | null;
+};
+
+export type CancelBookingResult = {
   problem: ApiProblem | null;
 };

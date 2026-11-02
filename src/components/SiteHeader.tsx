@@ -4,6 +4,7 @@ import { logoutAction } from '@/features/auth/actions';
 import { getCurrentUser } from '@/features/auth/session';
 import { Link } from '@/i18n/navigation';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { NavLink } from './NavLink';
 
 export async function SiteHeader() {
   const t = await getTranslations('nav');
@@ -16,16 +17,16 @@ export async function SiteHeader() {
         <span className="text-xl font-semibold">TableMint</span>
       </Link>
 
-      <nav className="flex items-center gap-6 text-sm">
-        <Link
-          href="/"
-          className="rounded-full bg-[#FDE7E0] px-4 py-2 font-semibold text-orange-600"
-        >
+      <nav className="flex items-center gap-2 text-sm">
+        <NavLink href="/" match={['/', '/restaurants']}>
           {t('catalog')}
-        </Link>
-        {/* «Мои брони» станет ссылкой, когда будет экран C6 */}
-        {user && <span className="text-neutral-500">{t('myBookings')}</span>}
-        <span className="text-neutral-500">{t('about')}</span>
+        </NavLink>
+        {user && (
+          <NavLink href="/bookings" match={['/bookings']}>
+            {t('myBookings')}
+          </NavLink>
+        )}
+        <span className="px-4 py-2 text-neutral-600">{t('about')}</span>
       </nav>
 
       <div className="flex items-center gap-3">
