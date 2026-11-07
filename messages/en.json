@@ -4,7 +4,8 @@
     "myBookings": "My bookings",
     "about": "About",
     "login": "Sign in",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "cabinet": "Cabinet"
   },
   "catalog": {
     "region": "Kyrgyzstan",
@@ -155,5 +156,50 @@
     "notModifiable": "This booking can no longer be changed.",
     "breadcrumbLabel": "Breadcrumb",
     "networkError": "Could not complete the action. Check your connection and try again."
+  },
+
+  "contact": {
+    "title": "Ask the restaurant to contact you",
+    "name": "Name",
+    "namePlaceholder": "How should we address you",
+    "phone": "Phone",
+    "phonePlaceholder": "+996 000 000 000",
+    "email": "Email",
+    "emailPlaceholder": "name@example.com",
+    "message": "Message",
+    "messagePlaceholder": "Tell the restaurant how it can help",
+    "consent": "I agree to the processing of my personal data.",
+    "privacyLink": "Data notice",
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "needContact": "A phone number or an email is required.",
+    "sentTitle": "Request sent",
+    "sentText": "“{restaurant}” will contact you using the details you provided.",
+    "toRestaurant": "To the restaurant page",
+    "toCatalog": "To catalog"
+  },
+
+  "owner": {
+    "cabinetOwner": "Owner cabinet",
+    "cabinetModerator": "Moderator cabinet",
+    "logout": "Sign out",
+    "language": "Language",
+    "firstLogin": "First sign-in",
+    "requiredStep": "Required step",
+    "passwordTitle": "Set a new password",
+    "passwordIntro": "You signed in with a temporary password. Replace it with a permanent one to continue to your restaurant setup.",
+    "currentPassword": "Current temporary password",
+    "newPassword": "New password",
+    "newPasswordHint": "At least 10 characters",
+    "confirmPassword": "Confirm new password",
+    "savePassword": "Save new password",
+    "savingPassword": "Saving…",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "limitedAccess": "Until the password is changed, only the current account, password change and sign-out are available.",
+    "yourRestaurant": "Your restaurant on TableMint",
+    "moderatorCreated": "A moderator has already created your account and restaurant card. Start with secure access.",
+    "dashboardTitle": "Cabinet",
+    "dashboardNext": "The restaurant setup checklist will appear here."
   }
 }

@@ -3,6 +3,7 @@ import { AuthShell } from '@/features/auth/AuthShell';
 import { RegisterForm } from '@/features/auth/RegisterForm';
 import { getCurrentUser } from '@/features/auth/session';
 import { redirect } from '@/i18n/navigation';
+import { landingPath } from '@/features/auth/guard';
 
 export default async function RegisterPage({
   params,
@@ -16,7 +17,8 @@ export default async function RegisterPage({
   const sp = await searchParams;
   const next = typeof sp.next === 'string' ? sp.next : '';
 
-  if (await getCurrentUser()) redirect({ href: next || '/', locale });
+  const user = await getCurrentUser();
+  if (user) redirect({ href: landingPath(user, next), locale });
 
   return (
     <AuthShell>

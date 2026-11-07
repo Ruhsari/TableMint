@@ -15,3 +15,8 @@ export async function fetchMenu(restaurantId: string) {
   void restaurantId; // пока меню одно на всех
   return menu;
 }
+
+// ВРЕМЕННО. Заменится запросом listManagedRestaurants (рестораны вызывающего).
+export async function fetchManagedRestaurant() {
+  return restaurants[0] ?? null;
+}

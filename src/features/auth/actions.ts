@@ -3,10 +3,12 @@
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
 import { redirect } from '@/i18n/navigation';
-import { MOCK_SESSION_COOKIE } from './session';
+import { landingPath } from './guard';
+import { markPasswordChanged, mustChangePasswordFor, roleFor } from './mockAccounts';
+import { MOCK_SESSION_COOKIE, encodeSession, getCurrentUser, type StoredSession } from './session';
 import type { AuthState } from './types';
 
-// ВРЕМЕННО. Заглушки операций login, registerCustomer и logout.
+// ВРЕМЕННО. Заглушки операций login, registerCustomer, logout и changePassword.
 // Настоящие проверки и сообщения (RU/EN) будут приходить от API.
 const text = {
   ru: {
@@ -16,6 +18,9 @@ const text = {
     consent: 'Чтобы продолжить, дайте согласие на обработку персональных данных.',
     required: 'Заполните поле.',
     password: 'Пароль не короче 10 символов.',
+    mismatch: 'Пароли не совпадают.',
+    currentInvalid: 'Текущий пароль указан неверно.',
+    unauthenticated: 'Войдите, чтобы продолжить.',
   },
   en: {
     validation: 'Please check the highlighted fields.',
@@ -24,6 +29,9 @@ const text = {
     consent: 'Please agree to the processing of your personal data to continue.',
     required: 'Fill in this field.',
     password: 'Password must be at least 10 characters.',
+    mismatch: 'The passwords do not match.',
+    currentInvalid: 'The current password is wrong.',
+    unauthenticated: 'Please sign in to continue.',
   },
 };
 
@@ -38,8 +46,8 @@ function nameFromEmail(email: string): string {
   return local.charAt(0).toUpperCase() + local.slice(1);
 }
 
-async function startSession(displayName: string) {
-  (await cookies()).set(MOCK_SESSION_COOKIE, encodeURIComponent(displayName), {
+async function startSession(session: StoredSession) {
+  (await cookies()).set(MOCK_SESSION_COOKIE, encodeSession(session), {
     httpOnly: true,
     sameSite: 'lax',
     path: '/',
@@ -74,8 +82,11 @@ export async function loginAction(_prev: AuthState, formData: FormData): Promise
     return { values: { email }, problem: { code: 'INVALID_CREDENTIALS', title: tx.invalid } };
   }
 
-  await startSession(nameFromEmail(email));
-  redirect({ href: next, locale });
+  const role = roleFor(email);
+  const mustChange = mustChangePasswordFor(email);
+  await startSession({ email, name: nameFromEmail(email), role, mustChange });
+  redirect({ href: landingPath({ role, mustChangePassword: mustChange }, next), locale });
+  return { problem: null, values: {} }; // недостижимо: redirect выше уже прервал функцию
 }
 
 export async function registerAction(_prev: AuthState, formData: FormData): Promise<AuthState> {
@@ -122,8 +133,64 @@ export async function registerAction(_prev: AuthState, formData: FormData): Prom
     };
   }
 
-  await startSession(displayName);
+  // Самостоятельно регистрируются только клиенты
+  await startSession({ email, name: displayName, role: 'CUSTOMER', mustChange: false });
   redirect({ href: next, locale });
+  return { problem: null, values: {} }; // недостижимо: redirect выше уже прервал функцию
+}
+
+export async function changePasswordAction(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  const locale = await getLocale();
+  const tx = text[locale === 'en' ? 'en' : 'ru'];
+
+  const user = await getCurrentUser();
+  if (!user) {
+    return { values: {}, problem: { code: 'UNAUTHENTICATED', title: tx.unauthenticated } };
+  }
+
+  const currentPassword = String(formData.get('currentPassword') ?? '');
+  const newPassword = String(formData.get('newPassword') ?? '');
+  const confirmPassword = String(formData.get('confirmPassword') ?? '');
+
+  const fieldErrors: Record<string, string> = {};
+  if (!currentPassword) fieldErrors.currentPassword = tx.required;
+  if (!newPassword) fieldErrors.newPassword = tx.required;
+  else if (newPassword.length < 10) fieldErrors.newPassword = tx.password;
+  if (!confirmPassword) fieldErrors.confirmPassword = tx.required;
+  else if (newPassword && confirmPassword !== newPassword) {
+    fieldErrors.confirmPassword = tx.mismatch;
+  }
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      values: {},
+      problem: { code: 'VALIDATION_FAILED', title: tx.validation, fieldErrors },
+    };
+  }
+
+  // Демо-сценарий неверного текущего пароля: «wrong»
+  if (currentPassword === 'wrong') {
+    return {
+      values: {},
+      problem: {
+        code: 'CURRENT_PASSWORD_INVALID',
+        title: tx.currentInvalid,
+        fieldErrors: { currentPassword: tx.currentInvalid },
+      },
+    };
+  }
+
+  markPasswordChanged(user.email);
+  await startSession({
+    email: user.email,
+    name: user.displayName,
+    role: user.role,
+    mustChange: false,
+  });
+  redirect({ href: '/admin', locale });
+  return { problem: null, values: {} }; // недостижимо: redirect выше уже прервал функцию
 }
 
 export async function logoutAction(): Promise<void> {

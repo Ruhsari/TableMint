@@ -21,9 +21,14 @@ export async function SiteHeader() {
         <NavLink href="/" match={['/', '/restaurants']}>
           {t('catalog')}
         </NavLink>
-        {user && (
+        {user?.role === 'CUSTOMER' && (
           <NavLink href="/bookings" match={['/bookings']}>
             {t('myBookings')}
+          </NavLink>
+        )}
+        {user && user.role !== 'CUSTOMER' && (
+          <NavLink href="/admin" match={['/admin']}>
+            {t('cabinet')}
           </NavLink>
         )}
         <span className="px-4 py-2 text-neutral-600">{t('about')}</span>

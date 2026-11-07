@@ -4,7 +4,8 @@
     "myBookings": "Мои брони",
     "about": "О сервисе",
     "login": "Войти",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "cabinet": "Кабинет"
   },
   "catalog": {
     "region": "Кыргызстан",
@@ -155,5 +156,50 @@
     "notModifiable": "Эту бронь уже нельзя изменить.",
     "breadcrumbLabel": "Навигация по страницам",
     "networkError": "Не удалось выполнить действие. Проверьте соединение и попробуйте ещё раз."
+  },
+
+  "contact": {
+    "title": "Попросить ресторан связаться",
+    "name": "Имя",
+    "namePlaceholder": "Как к вам обращаться",
+    "phone": "Телефон",
+    "phonePlaceholder": "+996 000 000 000",
+    "email": "Email",
+    "emailPlaceholder": "name@example.com",
+    "message": "Сообщение",
+    "messagePlaceholder": "Напишите, чем ресторан может помочь",
+    "consent": "Согласен на обработку персональных данных.",
+    "privacyLink": "Уведомление о данных",
+    "submit": "Отправить запрос",
+    "submitting": "Отправляем…",
+    "needContact": "Нужен телефон или email.",
+    "sentTitle": "Запрос отправлен",
+    "sentText": "Ресторан «{restaurant}» свяжется с вами по указанным контактам.",
+    "toRestaurant": "К странице ресторана",
+    "toCatalog": "К каталогу"
+  },
+
+  "owner": {
+    "cabinetOwner": "Кабинет владельца",
+    "cabinetModerator": "Кабинет модератора",
+    "logout": "Выйти",
+    "language": "Язык",
+    "firstLogin": "Первый вход",
+    "requiredStep": "Обязательный шаг",
+    "passwordTitle": "Установите новый пароль",
+    "passwordIntro": "Вы вошли с временным паролем. Чтобы перейти к настройке ресторана, замените его на постоянный.",
+    "currentPassword": "Текущий временный пароль",
+    "newPassword": "Новый пароль",
+    "newPasswordHint": "Минимум 10 символов",
+    "confirmPassword": "Подтвердите новый пароль",
+    "savePassword": "Сохранить новый пароль",
+    "savingPassword": "Сохраняем…",
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль",
+    "limitedAccess": "До смены пароля доступны только текущий аккаунт, смена пароля и выход.",
+    "yourRestaurant": "Ваш ресторан в TableMint",
+    "moderatorCreated": "Модератор уже создал ваш аккаунт и карточку ресторана. Начните с безопасного доступа.",
+    "dashboardTitle": "Кабинет",
+    "dashboardNext": "Здесь появится чеклист настройки ресторана."
   }
 }

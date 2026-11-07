@@ -41,13 +41,13 @@ export function RestaurantHero({ restaurant }: { restaurant: Restaurant }) {
             {t('book')}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
-          <button
-            type="button"
+          <Link
+            href={`/restaurants/${restaurant.id}/contact`}
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-orange-600 hover:bg-orange-50"
           >
             <Phone className="h-4 w-4" aria-hidden />
             {t('contact')}
-          </button>
+          </Link>
           <p className="mt-4 text-xs text-neutral-500">{t('bookHint')}</p>
         </div>
       </div>
