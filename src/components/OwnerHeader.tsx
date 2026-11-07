@@ -2,12 +2,17 @@ import { LogOut } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { logoutAction } from '@/features/auth/actions';
 import { getCurrentUser } from '@/features/auth/session';
+import { fetchManagedRestaurant } from '@/features/restaurants/data';
 import { Link } from '@/i18n/navigation';
 import { LocalePills } from './LocalePills';
 
 export async function OwnerHeader() {
   const t = await getTranslations('owner');
   const user = await getCurrentUser();
+  // Владельцу показываем название его ресторана, остальным имя аккаунта
+  const restaurant =
+    user?.role === 'OWNER' && !user.mustChangePassword ? await fetchManagedRestaurant() : null;
+  const accountLabel = restaurant?.name ?? user?.displayName;
 
   return (
     <header className="mx-auto mt-8 flex max-w-6xl items-center justify-between gap-4 rounded-full bg-white px-8 py-4 shadow-[0_0_40px_rgba(0,0,0,0.08)]">
@@ -23,7 +28,9 @@ export async function OwnerHeader() {
       </div>
 
       <div className="flex items-center gap-4 text-sm">
-        {user && <span className="hidden max-w-[12rem] truncate sm:block">{user.displayName}</span>}
+        {accountLabel && (
+          <span className="hidden max-w-[12rem] truncate sm:block">{accountLabel}</span>
+        )}
         <LocalePills />
         <form action={logoutAction}>
           <button

@@ -1,4 +1,5 @@
 import { menu, restaurants } from '@/mocks/restaurants';
+import { getOwnerRestaurant } from '@/features/owner/store';
 
 // Сейчас данные берутся из мока.
 // Когда появится API, меняем только тело этих трёх функций.
@@ -18,5 +19,5 @@ export async function fetchMenu(restaurantId: string) {
 
 // ВРЕМЕННО. Заменится запросом listManagedRestaurants (рестораны вызывающего).
 export async function fetchManagedRestaurant() {
-  return restaurants[0] ?? null;
+  return getOwnerRestaurant();
 }
