@@ -8,10 +8,9 @@ import type { SectionKey } from '@/features/owner/types';
 import { fetchManagedRestaurant } from '@/features/restaurants/data';
 import { Link, redirect } from '@/i18n/navigation';
 
-// ВРЕМЕННО: заглушка для экранов A4 (часы), A5 (столики), A6 (меню).
-// Когда мы сделаем настоящую страницу, например admin/hours/page.tsx,
-// Next.js будет открывать её, а эта заглушка перестанет срабатывать для этого адреса.
-const PENDING: SectionKey[] = ['hours', 'tables', 'menu'];
+// Все четыре раздела теперь имеют собственные страницы.
+// Эта заглушка больше не срабатывает ни для одного из них.
+const PENDING: SectionKey[] = [];
 
 export default async function SectionPlaceholderPage({
   params,

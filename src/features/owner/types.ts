@@ -1,5 +1,5 @@
 import type { ApiProblem } from '@/api/problem';
-import type { MenuSection, OpeningHours } from '@/mocks/restaurants';
+import type { MenuSection, MenuItem, OpeningHours } from '@/mocks/restaurants';
 
 export type RestaurantStatus = 'DRAFT' | 'PUBLISHED' | 'HIDDEN';
 
@@ -37,5 +37,32 @@ export type DetailsValues = {
 export type DetailsState = {
   problem: ApiProblem | null;
   values: DetailsValues;
+  saved: boolean;
+};
+
+// --- Hours ---
+export type HoursRow = {
+  day: number; // 1=Mon … 7=Sun
+  open: boolean;
+  opens: string; // 'HH:MM'
+  closes: string; // 'HH:MM'
+};
+
+export type HoursState = {
+  problem: ApiProblem | null;
+  saved: boolean;
+};
+
+// --- Tables ---
+export type TablesState = {
+  problem: ApiProblem | null;
+  saved: boolean;
+};
+
+// --- Menu ---
+export type MenuItemDraft = MenuItem & { sectionId: string };
+
+export type MenuState = {
+  problem: ApiProblem | null;
   saved: boolean;
 };
