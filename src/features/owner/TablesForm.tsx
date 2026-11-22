@@ -221,9 +221,7 @@ export function TablesForm({
             <p className="font-semibold">
               {t('bulkPreviewLabel', { from: bulkFrom, to: bulkTo, seats: bulkSeats })}
             </p>
-            <p className="text-xs text-neutral-400">
-              {t('bulkPreviewSub', { count: bulkCount })}
-            </p>
+            <p className="text-xs text-neutral-400">{t('bulkPreviewSub', { count: bulkCount })}</p>
           </div>
           <button
             type="button"

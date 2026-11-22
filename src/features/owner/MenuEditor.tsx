@@ -16,13 +16,7 @@ function uid() {
 
 type EditingItem = { sectionId: string; itemId: string } | null;
 
-function Toggle({
-  checked,
-  onChange,
-}: {
-  checked: boolean;
-  onChange: (v: boolean) => void;
-}) {
+function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <span
       role="switch"
@@ -32,7 +26,12 @@ function Toggle({
         checked ? 'bg-orange-500' : 'bg-neutral-300'
       }`}
     >
-      <input type="checkbox" className="sr-only" checked={checked} onChange={() => onChange(!checked)} />
+      <input
+        type="checkbox"
+        className="sr-only"
+        checked={checked}
+        onChange={() => onChange(!checked)}
+      />
       <span
         className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${
           checked ? 'translate-x-6' : 'translate-x-1'
@@ -94,10 +93,7 @@ export function MenuEditor({
 
   function addSection() {
     const id = uid();
-    setSections((prev) => [
-      ...prev,
-      { id, name: 'Новый раздел', items: [] },
-    ]);
+    setSections((prev) => [...prev, { id, name: 'Новый раздел', items: [] }]);
     markDirty();
   }
 
@@ -174,7 +170,7 @@ export function MenuEditor({
 
       {/* Список разделов */}
       {sections.map((section, sIdx) => (
-        <section key={section.id} className="rounded-3xl bg-white shadow-sm overflow-hidden">
+        <section key={section.id} className="overflow-hidden rounded-3xl bg-white shadow-sm">
           {/* Шапка раздела */}
           <div className="flex items-center gap-3 border-b border-neutral-100 px-6 py-4">
             <div className="min-w-0 flex-1">
@@ -207,7 +203,9 @@ export function MenuEditor({
               >
                 <ChevronDown className="h-4 w-4" />
               </button>
-              <span className="ml-4 text-xs font-semibold tracking-wide uppercase">{t('colItems')}</span>
+              <span className="ml-4 text-xs font-semibold tracking-wide uppercase">
+                {t('colItems')}
+              </span>
               <span className="font-semibold">{section.items.length}</span>
             </div>
           </div>
@@ -226,14 +224,13 @@ export function MenuEditor({
           {/* Позиции */}
           <div className="divide-y divide-neutral-50 px-6">
             {section.items.map((item, iIdx) => {
-              const isEditing =
-                editing?.sectionId === section.id && editing?.itemId === item.id;
+              const isEditing = editing?.sectionId === section.id && editing?.itemId === item.id;
 
               if (isEditing) {
                 return (
                   <div
                     key={item.id}
-                    className="rounded-2xl border border-orange-200 bg-orange-50 p-4 my-3"
+                    className="my-3 rounded-2xl border border-orange-200 bg-orange-50 p-4"
                   >
                     <div className="flex items-center justify-between">
                       <p className="text-xs font-semibold text-orange-600">{t('editingItem')}</p>
@@ -265,7 +262,7 @@ export function MenuEditor({
                           onChange={(e) =>
                             updateItem(section.id, item.id, { price: e.target.value })
                           }
-                          className="w-full rounded-xl border border-neutral-200 px-3 py-2 text-sm font-mono"
+                          className="w-full rounded-xl border border-neutral-200 px-3 py-2 font-mono text-sm"
                         />
                         <p className="text-xs text-neutral-400">{t('priceHint')}</p>
                       </div>
@@ -287,9 +284,7 @@ export function MenuEditor({
                       <label className="flex items-center gap-2 text-sm">
                         <Toggle
                           checked={item.available}
-                          onChange={(v) =>
-                            updateItem(section.id, item.id, { available: v })
-                          }
+                          onChange={(v) => updateItem(section.id, item.id, { available: v })}
                         />
                         <span>{t('availableInMenu')}</span>
                       </label>
@@ -354,7 +349,7 @@ export function MenuEditor({
           </div>
 
           {/* Добавить позицию */}
-          <div className="px-6 pb-5 pt-2">
+          <div className="px-6 pt-2 pb-5">
             <button
               type="button"
               onClick={() => addItem(section.id)}
@@ -367,9 +362,7 @@ export function MenuEditor({
       ))}
 
       {/* Сноска */}
-      {sections.length > 0 && (
-        <p className="text-xs text-neutral-400">{t('menuFootnote')}</p>
-      )}
+      {sections.length > 0 && <p className="text-xs text-neutral-400">{t('menuFootnote')}</p>}
 
       {/* Статус */}
       <div aria-live="polite" className="space-y-3">
@@ -397,7 +390,9 @@ export function MenuEditor({
           {pending ? t('savingMenu') : t('saveMenu')}
         </button>
       </div>
-      <p className="text-right text-xs text-neutral-500">{t('menuFooterNote')}</p>
+      <p className="text-right text-xs text-neutral-500">
+        {published ? t('liveNote') : t('menuFooterNote')}
+      </p>
     </form>
   );
 }

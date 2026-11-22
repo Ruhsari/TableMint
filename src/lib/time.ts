@@ -49,3 +49,60 @@ export function formatDate(iso: string, locale: string): string {
     month: 'long',
   }).format(new Date(iso));
 }
+function intlLocaleOf(locale: string) {
+  return locale === 'en' ? 'en-GB' : 'ru-RU';
+}
+
+function capitalize(s: string) {
+  return s.charAt(0).toLocaleUpperCase() + s.slice(1);
+}
+
+/** '2026-11-02' + 1 -> '2026-11-03' */
+export function addDaysToDate(date: string, days: number): string {
+  const [y, m, d] = date.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+/** '2026-11-02' -> 'Понедельник, 2 ноября' */
+export function formatWeekdayDate(date: string, locale: string): string {
+  const d = new Date(`${date}T12:00:00${RESTAURANT_UTC_OFFSET}`);
+  if (Number.isNaN(d.getTime())) return '—';
+  return capitalize(
+    new Intl.DateTimeFormat(intlLocaleOf(locale), {
+      timeZone: RESTAURANT_TIME_ZONE,
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    }).format(d),
+  );
+}
+
+/** ISO -> '2 нояб · 13:42' */
+export function formatShortDateTime(iso: string, locale: string): string {
+  const day = new Intl.DateTimeFormat(intlLocaleOf(locale), {
+    timeZone: RESTAURANT_TIME_ZONE,
+    day: 'numeric',
+    month: 'short',
+  })
+    .format(new Date(iso))
+    .replace('.', '');
+  return `${day} · ${formatTime(iso, locale)}`;
+}
+
+/** ISO -> '2 ноября 2026, 13:42' */
+export function formatFullDateTime(iso: string, locale: string): string {
+  const day = new Intl.DateTimeFormat(intlLocaleOf(locale), {
+    timeZone: RESTAURANT_TIME_ZONE,
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+    .format(new Date(iso))
+    .replace(/\s?г\.$/, '');
+  return `${day}, ${formatTime(iso, locale)}`;
+}
+
+/** Текущий момент в миллисекундах. Вынесено в функцию, чтобы страница не вызывала Date.now() прямо при отрисовке */
+export function nowMs(): number {
+  return Date.now();
+}

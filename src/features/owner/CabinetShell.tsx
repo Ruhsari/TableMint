@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Store } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
@@ -30,13 +30,10 @@ export async function CabinetShell({
       <aside className="space-y-6">
         {/* Карточка ресторана */}
         <div>
-          <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-orange-100 to-orange-50">
-            {restaurant.image ? (
-              <Image src={restaurant.image} alt="" fill sizes="64px" className="object-cover" />
-            ) : (
-              <span className="text-2xl">🏠</span>
-            )}
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FDE7E0] text-orange-500">
+            <Store className="h-6 w-6" aria-hidden />
           </div>
+
           <p className="mt-4 truncate text-xl font-bold">{restaurant.name}</p>
           <p className="mt-1 text-xs text-neutral-500">
             {restaurant.city} · {restaurant.address}

@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { Check, LayoutGrid, Sprout } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Readiness } from './readiness';
 import { RestaurantStatusBadge } from './RestaurantStatusBadge';
 import { SECTION_META } from './sections';
 import { SECTION_KEYS, type OwnerRestaurant, type SectionKey } from './types';
+import { ArrowRight, Check, LayoutGrid, Sprout } from 'lucide-react';
 
 const footerStatus = {
   DRAFT: 'footerDraft',
@@ -26,6 +26,7 @@ export async function OwnerShell({
   children: ReactNode;
 }) {
   const t = await getTranslations('panel');
+  const tw = await getTranslations('workspace');
   const locale = await getLocale();
 
   const percent = Math.round((readiness.readyCount / readiness.total) * 100);
@@ -126,6 +127,13 @@ export async function OwnerShell({
               : t('sidebarAllDone')}
           </p>
         </div>
+        <Link
+          href="/admin/bookings"
+          className="flex items-center justify-between rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold hover:bg-neutral-50"
+        >
+          {tw('openWorkspace')}
+          <ArrowRight className="h-4 w-4 text-orange-500" aria-hidden />
+        </Link>
       </aside>
 
       <div className="min-w-0">

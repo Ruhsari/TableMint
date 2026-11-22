@@ -5,11 +5,7 @@ import { MenuEditor } from '@/features/owner/MenuEditor';
 import { getReadiness } from '@/features/owner/readiness';
 import { getOwnerRestaurant, isMenuSaved } from '@/features/owner/store';
 import { redirect } from '@/i18n/navigation';
-export default async function MenuPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function MenuPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 

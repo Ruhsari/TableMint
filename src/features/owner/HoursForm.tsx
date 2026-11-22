@@ -137,7 +137,7 @@ export function HoursForm({
                   value={row.opens}
                   disabled={!row.open}
                   onChange={(e) => setRow(row.day, { opens: e.target.value })}
-                  className="w-32 rounded-xl border border-neutral-200 px-3 py-2 text-sm font-mono disabled:opacity-40"
+                  className="w-32 rounded-xl border border-neutral-200 px-3 py-2 font-mono text-sm disabled:opacity-40"
                 />
               </label>
 
@@ -148,7 +148,7 @@ export function HoursForm({
                   value={row.closes}
                   disabled={!row.open}
                   onChange={(e) => setRow(row.day, { closes: e.target.value })}
-                  className="w-32 rounded-xl border border-neutral-200 px-3 py-2 text-sm font-mono disabled:opacity-40"
+                  className="w-32 rounded-xl border border-neutral-200 px-3 py-2 font-mono text-sm disabled:opacity-40"
                 />
               </label>
 

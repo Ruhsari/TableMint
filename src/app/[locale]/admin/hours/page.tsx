@@ -6,11 +6,7 @@ import { getReadiness } from '@/features/owner/readiness';
 import { fetchManagedRestaurant } from '@/features/restaurants/data';
 import { redirect } from '@/i18n/navigation';
 
-export default async function HoursPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function HoursPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -29,10 +25,7 @@ export default async function HoursPage({
       <h1 className="mt-1 text-4xl font-bold">{t('hoursTitle')}</h1>
       <p className="mt-2 text-sm text-neutral-500">{t('hoursSubtitle')}</p>
 
-      <HoursForm
-        initialHours={restaurant.hours}
-        published={restaurant.status === 'PUBLISHED'}
-      />
+      <HoursForm initialHours={restaurant.hours} published={restaurant.status === 'PUBLISHED'} />
     </OwnerShell>
   );
 }

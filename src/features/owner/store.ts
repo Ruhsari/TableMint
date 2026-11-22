@@ -21,7 +21,12 @@ function seed(): OwnerRestaurant {
     phone: base?.phone ?? '',
     hours: base ? base.hours.map((h) => ({ ...h })) : [],
     // 4 активных столика по 2 места: «4 активных столика · 8 мест», как на макете A2
-    tables: [1, 2, 3, 4].map((n) => ({ id: `t${n}`, label: `Столик ${n}`, seats: 2, active: true })),
+    tables: [1, 2, 3, 4].map((n) => ({
+      id: `t${n}`,
+      label: `Столик ${n}`,
+      seats: 2,
+      active: true,
+    })),
     // Меню: демонстрационные данные (не сохранённые), как на макете A6
     menu,
   };

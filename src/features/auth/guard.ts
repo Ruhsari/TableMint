@@ -27,5 +27,6 @@ export async function requireStaff(
 // Куда вести после входа: персонал в кабинет, клиентов туда, откуда они пришли
 export function landingPath(user: Pick<CurrentUser, 'role' | 'mustChangePassword'>, next: string) {
   if (user.role === 'CUSTOMER') return next || '/';
+  if (user.role === 'MODERATOR') return next || '/admin/users';
   return user.mustChangePassword ? '/admin/password' : '/admin';
 }

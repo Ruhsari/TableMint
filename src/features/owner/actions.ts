@@ -6,8 +6,22 @@ import type { ApiProblem } from '@/api/problem';
 import type { MenuSection } from '@/mocks/restaurants';
 import { getCurrentUser } from '@/features/auth/session';
 import { getReadiness } from './readiness';
-import { getOwnerRestaurant, setStatus, updateDetails, updateHours, updateMenu, updateTables } from './store';
-import type { DetailsState, HoursRow, HoursState, MenuState, OwnerTable, TablesState } from './types';
+import {
+  getOwnerRestaurant,
+  setStatus,
+  updateDetails,
+  updateHours,
+  updateMenu,
+  updateTables,
+} from './store';
+import type {
+  DetailsState,
+  HoursRow,
+  HoursState,
+  MenuState,
+  OwnerTable,
+  TablesState,
+} from './types';
 
 // ВРЕМЕННО. Заглушки операций updateRestaurant и setPublication.
 // Настоящие проверки и сообщения (RU/EN) будут приходить от API.
@@ -125,9 +139,7 @@ export async function saveHoursAction(rows: HoursRow[]): Promise<HoursState> {
 
   await new Promise((resolve) => setTimeout(resolve, 400));
   updateHours(
-    rows
-      .filter((r) => r.open)
-      .map((r) => ({ day: r.day, opens: r.opens, closes: r.closes })),
+    rows.filter((r) => r.open).map((r) => ({ day: r.day, opens: r.opens, closes: r.closes })),
   );
   revalidatePath('/', 'layout');
   return { saved: true, problem: null };
@@ -170,4 +182,3 @@ export async function saveMenuAction(sections: MenuSection[]): Promise<MenuState
   revalidatePath('/', 'layout');
   return { saved: true, problem: null };
 }
-

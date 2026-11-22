@@ -6,11 +6,7 @@ import { getReadiness } from '@/features/owner/readiness';
 import { fetchManagedRestaurant } from '@/features/restaurants/data';
 import { redirect } from '@/i18n/navigation';
 
-export default async function TablesPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function TablesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -29,10 +25,7 @@ export default async function TablesPage({
       <h1 className="mt-1 text-4xl font-bold">{t('tablesTitle')}</h1>
       <p className="mt-2 text-sm text-neutral-500">{t('tablesSubtitle')}</p>
 
-      <TablesForm
-        initialTables={restaurant.tables}
-        published={restaurant.status === 'PUBLISHED'}
-      />
+      <TablesForm initialTables={restaurant.tables} published={restaurant.status === 'PUBLISHED'} />
     </OwnerShell>
   );
 }

@@ -8,12 +8,16 @@ import { ReadinessChecklist } from '@/features/owner/ReadinessChecklist';
 import { RestaurantStatusBadge } from '@/features/owner/RestaurantStatusBadge';
 import { SECTION_META } from '@/features/owner/sections';
 import { fetchManagedRestaurant } from '@/features/restaurants/data';
-import { Link } from '@/i18n/navigation';
+import { Link, redirect } from '@/i18n/navigation';
 
 export default async function AdminHomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const user = await requireStaff(locale, '/admin');
+
+  if (user.role === 'MODERATOR') {
+    redirect({ href: '/admin/users', locale });
+  }
 
   // Экраны модератора (M1–M3) будут позже
   if (user.role !== 'OWNER') {
@@ -27,6 +31,7 @@ export default async function AdminHomePage({ params }: { params: Promise<{ loca
   }
 
   const t = await getTranslations('panel');
+  const tw = await getTranslations('workspace');
   const restaurant = await fetchManagedRestaurant();
   const readiness = getReadiness(restaurant);
 
@@ -86,16 +91,22 @@ export default async function AdminHomePage({ params }: { params: Promise<{ loca
               <ArrowRight className="h-4 w-4" aria-hidden />
               {t(SECTION_META[next].action)}
             </Link>
+          ) : restaurant.status === 'PUBLISHED' ? (
+            <Link
+              href="/admin/bookings"
+              className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600"
+            >
+              <ArrowRight className="h-4 w-4" aria-hidden />
+              {tw('openWorkspace')}
+            </Link>
           ) : (
-            restaurant.status !== 'PUBLISHED' && (
-              <a
-                href="#publication"
-                className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600"
-              >
-                <ArrowRight className="h-4 w-4" aria-hidden />
-                {t('actionPublish')}
-              </a>
-            )
+            <a
+              href="#publication"
+              className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600"
+            >
+              <ArrowRight className="h-4 w-4" aria-hidden />
+              {t('actionPublish')}
+            </a>
           )}
         </div>
         <div
