@@ -6,29 +6,31 @@ export function BackgroundDecor() {
       aria-hidden
       className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full overflow-hidden"
     >
-      {/* Декоративная тарелка с салатом слева (начинается под заголовком и видна у левого края) */}
-      <div className="absolute top-[280px] -left-16 sm:-left-12 lg:-left-8">
-        <Image
-          src="/images/plate-left.png"
-          alt=""
-          width={540}
-          height={540}
-          unoptimized
-          priority
-          className="h-auto w-[360px] opacity-90 drop-shadow-md select-none sm:w-[440px] lg:w-[520px]"
-        />
-      </div>
+      <div className="relative mx-auto h-full max-w-6xl">
+        {/* Декоративная тарелка с салатом слева (привязана к левой колонке поиска) */}
+        <div className="absolute top-[280px] -left-16 sm:-left-20 lg:-left-24">
+          <Image
+            src="/images/plate-left.png"
+            alt=""
+            width={540}
+            height={540}
+            unoptimized
+            priority
+            className="h-auto w-[360px] opacity-90 drop-shadow-md select-none sm:w-[440px] lg:w-[500px]"
+          />
+        </div>
 
-      {/* Декоративная тарелка справа */}
-      <div className="absolute top-[480px] -right-14 hidden sm:block lg:-right-8">
-        <Image
-          src="/images/plate-right.png"
-          alt=""
-          width={280}
-          height={400}
-          unoptimized
-          className="h-auto w-[180px] opacity-80 drop-shadow-md select-none lg:w-[240px]"
-        />
+        {/* Декоративная тарелка справа (привязана к сетке карточек, не улетает к краю экрана) */}
+        <div className="absolute top-[480px] -right-12 hidden sm:block lg:-right-16">
+          <Image
+            src="/images/plate-right.png"
+            alt=""
+            width={280}
+            height={400}
+            unoptimized
+            className="h-auto w-[180px] opacity-80 drop-shadow-md select-none lg:w-[220px]"
+          />
+        </div>
       </div>
     </div>
   );

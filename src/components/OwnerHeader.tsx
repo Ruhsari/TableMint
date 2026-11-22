@@ -4,7 +4,7 @@ import { logoutAction } from '@/features/auth/actions';
 import { getCurrentUser } from '@/features/auth/session';
 import { fetchManagedRestaurant } from '@/features/restaurants/data';
 import { Link } from '@/i18n/navigation';
-import { LocalePills } from './LocalePills';
+import { LocaleSwitcher } from './LocaleSwitcher';
 
 export async function OwnerHeader() {
   const t = await getTranslations('owner');
@@ -31,7 +31,7 @@ export async function OwnerHeader() {
         {accountLabel && (
           <span className="hidden max-w-[12rem] truncate sm:block">{accountLabel}</span>
         )}
-        <LocalePills />
+        <LocaleSwitcher />
         <form action={logoutAction}>
           <button
             type="submit"

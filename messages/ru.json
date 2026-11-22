@@ -57,8 +57,10 @@
   },
   "locale": {
     "label": "Язык",
-    "ru": "Рус",
-    "en": "Eng"
+    "ru": "Русский",
+    "en": "English",
+    "ruShort": "RU",
+    "enShort": "EN"
   },
   "restaurant": {
     "breadcrumbLabel": "Навигация по страницам",
