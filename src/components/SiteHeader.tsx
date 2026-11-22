@@ -31,7 +31,9 @@ export async function SiteHeader() {
             {t('cabinet')}
           </NavLink>
         )}
-        <span className="px-4 py-2 text-neutral-600">{t('about')}</span>
+        <NavLink href="/about" match={['/about']}>
+          {t('about')}
+        </NavLink>
       </nav>
 
       <div className="flex items-center gap-3">
