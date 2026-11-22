@@ -8,7 +8,7 @@ export function BackgroundDecor() {
     >
       <div className="relative mx-auto h-full max-w-6xl">
         {/* Декоративная тарелка с салатом слева (привязана к левой колонке поиска) */}
-        <div className="absolute top-[280px] -left-16 sm:-left-20 lg:-left-24">
+        <div className="absolute top-[280px] -left-75 sm:-left-75 lg:-left-75">
           <Image
             src="/images/plate-left.png"
             alt=""
@@ -21,7 +21,7 @@ export function BackgroundDecor() {
         </div>
 
         {/* Декоративная тарелка справа (привязана к сетке карточек, не улетает к краю экрана) */}
-        <div className="absolute top-[480px] -right-12 hidden sm:block lg:-right-16">
+        <div className="absolute top-[480px] -right-50 hidden sm:block lg:-right-50">
           <Image
             src="/images/plate-right.png"
             alt=""
